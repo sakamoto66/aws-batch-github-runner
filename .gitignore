@@ -1,0 +1,6 @@
+.idea
+.env
+.terraform
+.terraform.*
+terraform.tfstate*
+*:Zone.Identifier
