@@ -4,3 +4,4 @@
 .terraform.*
 terraform.tfstate*
 *:Zone.Identifier
+tmp/

@@ -1,5 +1,5 @@
 module "ap-northeast-1" {
-  source = "./ap-northeast-1"
+  source = "./<region>"
 
   batch_name                    = var.batch_name
   self_hosted_runner_url        = module.runner_ecr.repository_url
