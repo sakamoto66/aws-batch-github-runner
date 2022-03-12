@@ -1,5 +1,10 @@
 # AWS Batch for self hosted GitHub action runners
 
+Launch a self-hosted runner with the flag "--ephemeral" via AWS Batch.  
+It will be automatically terminated under any of the following conditions of the instance.
+- The processing of the first job is finished
+- I did not receive a job for a certain period of time after starting (120sec)
+
 ## Setup
 ### Step1. Create Github Personal access token
 
