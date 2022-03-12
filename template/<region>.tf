@@ -1,4 +1,4 @@
-module "ap-northeast-1" {
+module "<region>" {
   source = "./<region>"
 
   batch_name                    = var.batch_name
