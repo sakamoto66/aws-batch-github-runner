@@ -33,6 +33,7 @@ arn:aws:secretsmanager:<region>:<account id>:secret:<Secret Name>-XXXXXX
 ```
 git clone https://github.com/sakamoto66/aws-batch-github-runner.git
 cd aws-batch-github-runner
+./generate-region.sh us-east-1
 cd terraform
 terraform init
 terraform init -var 'arn:aws:secretsmanager:<region>:<account id>:secret:<Secret Name>-XXXXXX'
