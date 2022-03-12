@@ -5,7 +5,7 @@ resource "aws_batch_job_definition" "self_hosted_runner" {
   container_properties = <<CONTAINER_PROPERTIES
 {
     "image": "${var.self_hosted_runner_url}",
-    "memory": 8000,
+    "memory": 7000,
     "vcpus": 8,
     "environment": [
         {"name": "EPHEMERAL", "value": "1"},
