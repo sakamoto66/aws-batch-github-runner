@@ -15,3 +15,12 @@ resource "aws_batch_job_queue" "spot" {
     resource.aws_batch_compute_environment.spot.arn
   ]
 }
+
+resource "aws_batch_job_queue" "minimum" {
+  name     = "${var.batch_name}_minimum"
+  state    = "ENABLED"
+  priority = 1
+  compute_environments = [
+    resource.aws_batch_compute_environment.minimum.arn
+  ]
+}
