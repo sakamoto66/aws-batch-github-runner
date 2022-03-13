@@ -3,8 +3,6 @@
 export RUNNER_ALLOW_RUNASROOT=1
 export PATH=$PATH:/actions-runner
 
-/check_jobs.sh &
-
 # Un-export these, so that they must be passed explicitly to the environment of
 # any command that needs them.  This may help prevent leaks.
 export -n ACCESS_TOKEN
@@ -119,6 +117,10 @@ fi
 
 extra_flags=""
 [[ -n "$DISABLE_AUTO_UPDATE" ]] && extra_flags="--disableupdate" || :
+
+if [ -n "${JOBS_ACCEPTANCE_TIMEOUT}" ]; then
+  /check_jobs.sh ${JOBS_ACCEPTANCE_TIMEOUT} &
+fi
 
 # Container's command (CMD) execution
 "$@" "${extra_flags}"
