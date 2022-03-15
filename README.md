@@ -70,6 +70,7 @@ https://github.com/organizations/<my organization>/settings/actions/runners
 - run .github/workflows/hello.yml on github.com
 
 ## IAM policy for Execute Batch Job
+
 ```json
 {
     "Version": "2012-10-17",
@@ -77,7 +78,11 @@ https://github.com/organizations/<my organization>/settings/actions/runners
         {
             "Effect": "Allow",
             "Action": "batch:SubmitJob",
-            "Resource": "arn:aws:batch:*:<Account Id>:job-definition/self_hosted_runner:*"
+            "Resource": [
+                "arn:aws:batch:*:<Account Id>:job-queue/self_hosted_runner_spot",
+                "arn:aws:batch:*:<Account Id>:job-queue/self_hosted_runner_ec2",
+                "arn:aws:batch:*:<Account Id>:job-definition/self_hosted_runner:*"
+            ]
         }
     ]
 }
