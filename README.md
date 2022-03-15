@@ -69,3 +69,16 @@ https://github.com/organizations/<my organization>/settings/actions/runners
 - this repository fork
 - run .github/workflows/hello.yml on github.com
 
+## IAM policy for Execute Batch Job
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "batch:SubmitJob",
+            "Resource": "arn:aws:batch:*:<Account Id>:job-definition/self_hosted_runner:*"
+        }
+    ]
+}
+```
