@@ -10,7 +10,7 @@ jobs:
           aws --region us-east-1 batch submit-job \
           --job-name test \
           --job-queue self_hosted_runner_spot \
-          --job-definition self_hosted_runner:6 \
+          --job-definition self_hosted_runner \
           --timeout attemptDurationSeconds=600 \
           --container-overrides '{"vcpus": 8, "environment":[{"name":"LABELS","value":"loadtest"}]}'
         env:
