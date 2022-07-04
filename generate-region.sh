@@ -36,6 +36,6 @@ cp -r ${DIR}/template/* ${DIR}/tmp
 for tgt in `find ${DIR}/tmp/* -type f`; do
   sed -i -e "s/<region>/${region}/" $tgt
 done
-rename "s/<region>/${region}/" ${DIR}/tmp/*
+rename "s/\[\[region\]\]/${region}/" ${DIR}/tmp/*
 mv ${DIR}/tmp/* ${terraform}/
 rmdir ${DIR}/tmp/
