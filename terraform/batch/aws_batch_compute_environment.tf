@@ -20,6 +20,9 @@ resource "aws_batch_compute_environment" "ec2" {
   service_role = var.batch_service_role_arn
   type         = "MANAGED"
   depends_on   = [var.batch_service_role_attachment]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_batch_compute_environment" "spot" {
@@ -46,4 +49,7 @@ resource "aws_batch_compute_environment" "spot" {
   service_role = var.batch_service_role_arn
   type         = "MANAGED"
   depends_on   = [var.batch_service_role_attachment]
+  lifecycle {
+    create_before_destroy = true
+  }
 }

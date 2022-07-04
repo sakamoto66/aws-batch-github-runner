@@ -5,6 +5,9 @@ resource "aws_batch_job_queue" "ec2" {
   compute_environments = [
     resource.aws_batch_compute_environment.ec2.arn
   ]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_batch_job_queue" "spot" {
@@ -14,4 +17,7 @@ resource "aws_batch_job_queue" "spot" {
   compute_environments = [
     resource.aws_batch_compute_environment.spot.arn
   ]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
