@@ -5,18 +5,18 @@ It will be automatically terminated under any of the following conditions of the
 - The processing of the first job is finished
 - I did not receive a job for a certain period of time after starting (default:120sec)
 
-## Setup
-### Step1. Create Github Personal access token
+# Setup
+## Step1. Create Github Personal access token
 
 - Note: `aws batch`
 - Expiration: `<Any>`
 - Select scopes: `admin:org`
 
-### Step2. Create Github Organization
+## Step2. Create Github Organization
 
 - Name: `<Any>`
 
-### Step3. AWS Secret
+## Step3. AWS Secret
 
 - Open Secrets Manager
 - Create New Secret
@@ -32,7 +32,7 @@ ex)
 arn:aws:secretsmanager:<region>:<account id>:secret:<Secret Name>-XXXXXX
 ```
 
-### Step4. setup aws batch
+## Step4. setup aws batch
 
 - run terraform
 ```
@@ -44,7 +44,7 @@ terraform init
 terraform init -var 'arn:aws:secretsmanager:<region>:<account id>:secret:<Secret Name>-XXXXXX'
 terraform apply -auto-approve -var 'arn:aws:secretsmanager:<region>:<account id>:secret:<Secret Name>-XXXXXX'
 ```
-### Step5. test
+## Step5. test
 
 ```bash
 aws --region us-east-1 batch submit-job \
@@ -55,7 +55,7 @@ aws --region us-east-1 batch submit-job \
 --container-overrides '{"vcpus": 8, "environment":[{"name":"LABELS","value":"loadtest"}]}'
 ```
 
-### Step6. check runner
+## Step6. check runner
 
 - show bashboard
   - https://us-east-1.console.aws.amazon.com/batch/home?region=us-east-1
@@ -64,12 +64,12 @@ aws --region us-east-1 batch submit-job \
 https://github.com/organizations/<my organization>/settings/actions/runners
 
 
-### Step7. run github action
+## Step7. run github action
 
 - this repository fork
 - run .github/workflows/hello.yml on github.com
 
-## IAM policy for Execute Batch Job
+### IAM policy for Execute Batch Job
 
 ```json
 {
@@ -78,11 +78,7 @@ https://github.com/organizations/<my organization>/settings/actions/runners
         {
             "Effect": "Allow",
             "Action": "batch:SubmitJob",
-            "Resource": [
-                "arn:aws:batch:*:<Account Id>:job-queue/self_hosted_runner_spot",
-                "arn:aws:batch:*:<Account Id>:job-queue/self_hosted_runner_ec2",
-                "arn:aws:batch:*:<Account Id>:job-definition/self_hosted_runner:*"
-            ]
+            "Resource": "*"
         }
     ]
 }
