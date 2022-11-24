@@ -1,5 +1,5 @@
 variable "batch_name" {
-  default = "self_hosted_runner"
+  default = "github_self_runner"
 }
 variable "secret_arn" {
 }
