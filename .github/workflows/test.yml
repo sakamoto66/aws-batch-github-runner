@@ -10,4 +10,4 @@ jobs:
           REG_TOKEN=$(gh api --method POST -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/actions/runners/registration-token | jq .token --raw-output)
           echo $REG_TOKEN
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
