@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  plan:
-    name: Plan
+  apply:
+    name: Apply
     runs-on: ubuntu-latest
     defaults:
       run:
