@@ -7,15 +7,17 @@ jobs:
     steps:
       - name: Start Self Hosted Runner
         run: |
+          RUNNER_TOKEN=$(gh api --method POST -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/actions/runners/registration-token | jq .token --raw-output)
           aws --region ap-northeast-1 batch submit-job \
           --job-name test \
           --job-queue github_self_runner_spot \
           --job-definition github_self_runner \
           --timeout attemptDurationSeconds=600 \
-          --container-overrides '{"vcpus": 8, "environment":[{"name":"REPO_URL","value":"https://github.com/${{ github.repository }}/"},{"name":"ACCESS_TOKEN","value":"${{ secrets.GITHUB_TOKEN }}"},{"name":"LABELS","value":"loadtest"}]}'
+          --container-overrides '{"vcpus": 8, "environment":[{"name":"REPO_URL","value":"https://github.com/${{ github.repository }}/"},{"name":"RUNNER_TOKEN","value":"${{ secrets.RUNNER_TOKEN }}"},{"name":"LABELS","value":"loadtest"}]}'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GH_TOKEN: ${{ secrets.PAT }}
 
   test:
     needs: [StartRunner]
