@@ -1,6 +1,17 @@
 name: test
 on:
   workflow_dispatch:
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  issues: write
+  packages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
 jobs:
   RunnerToken:
     runs-on: ubuntu-latest
