@@ -7,4 +7,4 @@ jobs:
     steps:
       - name: Start Self Hosted Runner
         run: |
-          curl -sX POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/${{ github.repository }}/actions/runners/registration-token
+          curl -sX POST -H "Authorization: token ${{ secrets.PAT }}" https://api.github.com/${{ github.repository }}/actions/runners/registration-token
