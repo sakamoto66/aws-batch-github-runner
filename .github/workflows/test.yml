@@ -11,3 +11,5 @@ jobs:
           --method POST \
           -H "Accept: application/vnd.github+json" \
           /repos/${{ github.repository }}/actions/runners/registration-token
+        env:
+          GH_TOKEN: ${{ github.token }}
