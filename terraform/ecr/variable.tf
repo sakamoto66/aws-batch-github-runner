@@ -1,7 +1,5 @@
-variable "batch_name" {
-  default = "github_self_runner"
-}
-variable "secret_arn" {
+variable "repository_name" {
+  default = "github/self-hosted-runner"
 }
 variable "codebuild_repogitory_url" {
 }
