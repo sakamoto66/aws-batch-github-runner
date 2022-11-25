@@ -1,13 +1,17 @@
-name: ci-master
+name: Terraform-Plan
 
 on:
   workflow_dispatch:
 
 jobs:
-  terraform:
-    name: Terraform
+  plan:
+    name: Plan
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        dir: [
+          resources/runner,
+        ]
     defaults:
       run:
         shell: bash
@@ -26,15 +30,15 @@ jobs:
       uses: hashicorp/setup-terraform@v2
 
     - name: Terraform Version
-      working-directory: ./terraform
+      working-directory: ${{ matrix.dir }}/terraform
       run: terraform -v
 
     - name: Terraform Format
-      working-directory: ./terraform
+      working-directory: ${{ matrix.dir }}/terraform
       run: terraform fmt -recursive -check
 
     - name: Terraform plan
-      working-directory: ./terraform
+      working-directory: ${{ matrix.dir }}/terraform
       run: |
         terraform init
         terraform validate
