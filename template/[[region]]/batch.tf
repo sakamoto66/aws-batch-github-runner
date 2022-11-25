@@ -2,7 +2,7 @@
 module "batch" {
   source = "../batch"
 
-  batch_name                   = var.batch_name
+  batch_name                    = var.batch_name
   github_self_runner_url        = var.self_hosted_runner_url
   github_self_runner_secret_arn = var.self_hosted_runner_secret_arn
 
