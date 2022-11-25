@@ -13,7 +13,7 @@ module "batch_job_role" {
   trusted_role_services = [
     "ecs-tasks.amazonaws.com"
   ]
-  
+
   custom_role_policy_arns = [
     "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
     resource.aws_iam_policy.batch_job_role.arn

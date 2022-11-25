@@ -8,7 +8,7 @@ resource "aws_ecr_repository" "runner" {
     scan_on_push = true
   }
 }
- 
+
 output "repository_url" {
   value = resource.aws_ecr_repository.runner.repository_url
 }
