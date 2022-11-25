@@ -1,7 +1,7 @@
 module "runner_ecr" {
   source                       = "./ecr"
   repository_name              = "github/self-hosted-runner"
-  codebuild_repogitory_url     = var.codebuild_repogitory_url
+  codebuild_repository_url     = var.codebuild_repository_url
   github_personal_access_token = var.github_personal_access_token
 }
 

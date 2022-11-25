@@ -14,7 +14,7 @@ module "build" {
   private_repository            = true
 
   source_type     = "GITHUB"
-  source_location = var.codebuild_repogitory_url
+  source_location = var.codebuild_repository_url
   git_clone_depth = 1
   artifact_type   = "NO_ARTIFACTS"
 
