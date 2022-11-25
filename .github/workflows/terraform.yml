@@ -35,7 +35,7 @@ jobs:
       working-directory: ./terraform
       run: terraform fmt -recursive -check
 
-    - name: Terraform plan
+    - name: Terraform Plan
       working-directory: ./terraform
       run: |
         terraform init
