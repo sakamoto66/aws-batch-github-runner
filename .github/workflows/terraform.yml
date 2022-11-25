@@ -7,11 +7,6 @@ jobs:
   plan:
     name: Plan
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dir: [
-          resources/runner,
-        ]
     defaults:
       run:
         shell: bash
@@ -30,15 +25,15 @@ jobs:
       uses: hashicorp/setup-terraform@v2
 
     - name: Terraform Version
-      working-directory: ${{ matrix.dir }}/terraform
+      working-directory: ./terraform
       run: terraform -v
 
     - name: Terraform Format
-      working-directory: ${{ matrix.dir }}/terraform
+      working-directory: ./terraform
       run: terraform fmt -recursive -check
 
     - name: Terraform plan
-      working-directory: ${{ matrix.dir }}/terraform
+      working-directory: ./terraform
       run: |
         terraform init
         terraform validate
