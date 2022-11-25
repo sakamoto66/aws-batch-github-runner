@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Start Self Hosted Runner
         run: |
-          aws --region us-east-1 batch submit-job \
+          aws --region ap-northeast-1 batch submit-job \
           --job-name test \
           --job-queue github_self_runner_spot \
           --job-definition github_self_runner \
