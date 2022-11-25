@@ -31,12 +31,12 @@ jobs:
       working-directory: ./terraform
       run: terraform -v
 
-    - name: Terraform Plan
+    - name: Terraform Apply
       working-directory: ./terraform
       run: |
         terraform init
         terraform validate
         terraform apply -auto-approve \
         -var 'secret_arn=${{ secrets.SECRET_ARN }}' \
-        -var 'github_personal_access_token=${{ secrets.GITHUB_TOKEN }}' \
+        -var 'github_personal_access_token=${{ secrets.PAT }}' \
         -var 'codebuild_repository_url=https://github.com/${{ github.repository }}'
