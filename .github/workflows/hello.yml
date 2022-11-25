@@ -9,10 +9,10 @@ jobs:
         run: |
           aws --region us-east-1 batch submit-job \
           --job-name test \
-          --job-queue self_hosted_runner_spot \
-          --job-definition self_hosted_runner \
-          --timeout attemptDurationSeconds=600 \
-          --container-overrides '{"vcpus": 8, "environment":[{"name":"LABELS","value":"loadtest"}]}'
+          --job-queue github_self_runner_spot \
+          --job-definition github_self_runner \
+          --timeout attemptDurationSeconds=60 \
+          --container-overrides '{"vcpus": 8, "environment":[{"name":"LABELS","value":"loadtest"},{"name":"REPO_URL","value":"https://github.com/${{ github.repository }}/"}]}'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
