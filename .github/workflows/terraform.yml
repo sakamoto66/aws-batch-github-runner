@@ -40,5 +40,8 @@ jobs:
         terraform validate
         terraform plan \
         -var 'secret_arn=${{ secrets.SECRET_ARN }}' \
-        -var 'github_personal_access_token=${{ secrets.GITHUB_TOKEN }}' \
-        -var 'codebuild_repository_url=https://github.com/${{ github.repository }}/'
+        -var 'github_personal_access_token=${{ secrets.PAT }}' \
+        -var 'codebuild_repository_url=https://github.com/${{ github.repository }}'
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
