@@ -5,15 +5,18 @@ jobs:
   StartRunner:
     runs-on: ubuntu-latest
     steps:
-      - name: Start Self Hosted Runner
+      - name: Get Runner Token
         run: |
           RUNNER_TOKEN=$(gh api --method POST -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/actions/runners/registration-token | jq .token --raw-output)
+          echo "RUNNER_TOKEN=$RUNNER_TOKEN" >> $GITHUB_ENV
+      - name: Start Self Hosted Runner
+        run: |
           aws --region ap-northeast-1 batch submit-job \
           --job-name test \
           --job-queue github_self_runner_spot \
           --job-definition github_self_runner \
           --timeout attemptDurationSeconds=600 \
-          --container-overrides '{"vcpus": 8, "environment":[{"name":"REPO_URL","value":"https://github.com/${{ github.repository }}/"},{"name":"RUNNER_TOKEN","value":"$RUNNER_TOKEN"},{"name":"LABELS","value":"loadtest"}]}'
+          --container-overrides '{"vcpus": 8, "environment":[{"name":"REPO_URL","value":"https://github.com/${{ github.repository }}/"},{"name":"RUNNER_TOKEN","value":"${{ env.RUNNER_TOKEN }}"},{"name":"LABELS","value":"loadtest"}]}'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
