@@ -1,0 +1,13 @@
+version: '3'
+services:
+  github-self-runner:
+    container_name:  github-self-runner
+    build: .
+    tty: true
+    environment:
+      ORG_NAME: 'sakamoto66team'
+      ACCESS_TOKEN: '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'
+      EPHEMERAL: '1'
+      JOBS_ACCEPTANCE_TIMEOUT: '120'
+      RUNNER_SCOPE: 'org'
+#    command: tail -f /dev/null
