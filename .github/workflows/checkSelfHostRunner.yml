@@ -17,7 +17,7 @@ jobs:
           while true; do
             STATUS=$(aws --region ap-northeast-1 batch describe-jobs --jobs "${{ github.event.inputs.jobId }}" | jq -r '.jobs[0].status')
             if [[ "${STATUS}" != "${OLD_STATUS}" ]]; then
-              echo "::notice title=Status::$STATUS"
+              echo "::notice title=Status::[$(date +'%Y/%m/%d %T %Z')] $STATUS"
             fi
             OLD_STATUS=$STATUS
             [[ "${STATUS}" = "null" ]] && exit 1
