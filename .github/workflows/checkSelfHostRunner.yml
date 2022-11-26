@@ -20,6 +20,10 @@ jobs:
               echo "::notice title=Status::[$(date +'%Y/%m/%d %T %Z')] $STATUS"
             fi
             OLD_STATUS=$STATUS
+            if [[ "${STATUS}" = "FAILED" || "${STATUS}" = "SUCCEEDED" ]]; then
+              LOG_NAME=$(aws --region ap-northeast-1 batch describe-jobs --jobs "${JOBID}" | jq -r '.jobs[0].container.logStreamName')
+              aws --region ap-northeast-1 logs get-log-events --log-group-name /aws/batch/job --log-stream-name "${LOG_NAME}"|grep message| rev | cut -c 3- | rev | cut -c 25- 
+            fi
             [[ "${STATUS}" = "null" ]] && exit 1
             [[ "${STATUS}" = "FAILED" ]] && exit 1
             [[ "${STATUS}" = "SUCCEEDED" ]] && exit 0
