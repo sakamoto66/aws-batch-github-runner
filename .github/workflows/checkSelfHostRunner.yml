@@ -13,8 +13,18 @@ jobs:
       - name: Check Job Status
         run: |
           echo "::notice title=Self Hosted Runner Job Id::${{ github.event.inputs.jobId }}"
-          STATUS=$(aws --region ap-northeast-1 batch describe-jobs --jobs ${{ github.event.inputs.jobId }} | jq -r '.jobs[0].status')
-          echo "::notice title=Status::$STATUS"
+          OLD_STATUS=
+          while true; do
+            STATUS=$(aws --region ap-northeast-1 batch describe-jobs --jobs "${{ github.event.inputs.jobId }}" | jq -r '.jobs[0].status')
+            if [[ "${STATUS}" != "${OLD_STATUS}" ]]; then
+              echo "::notice title=Status::$STATUS"
+            fi
+            OLD_STATUS=$STATUS
+            [[ "${STATUS}" = "null" ]] && exit 1
+            [[ "${STATUS}" = "FAILED" ]] && exit 1
+            [[ "${STATUS}" = "SUCCEEDED" ]] && exit 0
+            sleep 10
+          done
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
