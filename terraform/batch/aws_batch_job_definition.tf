@@ -16,8 +16,7 @@ resource "aws_batch_job_definition" "github_self_runner" {
         {"name": "REPO_URL", "value": "https://github.com/xxx"}
     ],
     "secrets" : [
-        {"name": "ACCESS_TOKEN", "valueFrom": "${var.github_self_runner_secret_arn}:ACCESS_TOKEN::"},
-        {"name": "ORG_NAME", "valueFrom": "${var.github_self_runner_secret_arn}:ORG_NAME::"}
+        {"name": "ACCESS_TOKEN", "valueFrom": "${var.github_self_runner_secret_arn}:ACCESS_TOKEN::"}
     ],
     "executionRoleArn": "${var.batch_job_execution_role_arn}"
 }
