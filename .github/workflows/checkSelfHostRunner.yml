@@ -8,12 +8,11 @@ on:
 jobs:
   JobStatus:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
     steps:
       - name: Check Job Status
         run: |
           echo "::notice title=Self Hosted Runner Job Id::${{ github.event.inputs.jobId }}"
-          STATUS=$(aws batch describe-jobs --jobs ${{ github.event.inputs.jobId }} | jq -r '.jobs[0].status')
+          aws batch describe-jobs --jobs ${{ github.event.inputs.jobId }}
           echo "::notice title=Status::$STATUS"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
