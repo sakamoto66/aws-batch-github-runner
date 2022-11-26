@@ -13,7 +13,7 @@ jobs:
       - name: Check Job Status
         run: |
           echo Self Hosted Runner Job Id: ${{ github.event.inputs.jobId }}
-          watch -n 10 -e echo $(aws batch describe-jobs --jobs ${{ github.event.inputs.jobId }} | jq -r '.jobs[0].status')
+          watch -n 10 -e -x echo $(aws batch describe-jobs --jobs ${{ github.event.inputs.jobId }} | jq -r '.jobs[0].status')
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
