@@ -14,7 +14,7 @@ jobs:
           --timeout attemptDurationSeconds=180 \
           --container-overrides '{"vcpus": 2, "environment":[{"name":"REPO_URL","value":"https://github.com/${{ github.repository }}/"},{"name":"LABELS","value":"loadtest"}]}' \
           | jq -r '.jobId' )
-          echo $JOB_21_ID
+          echo "::notice title=Self Hosted Runner Job Id::$JOB_21_ID"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
