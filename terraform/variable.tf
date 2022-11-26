@@ -3,7 +3,7 @@ variable "batch_name" {
 }
 variable "secret_arn" {
 }
-variable "codebuild_repository_url" {
+variable "codebuild_source_location" {
 }
 variable "github_personal_access_token" {
 }
