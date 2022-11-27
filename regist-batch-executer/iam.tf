@@ -51,6 +51,6 @@ resource "aws_iam_role_policy_attachment" "executer" {
 }
 
 output "AWS_ROLE_ARN" {
-  value = aws_iam_policy.executer.arn
+  value = aws_iam_role.executer.arn
   description = "Please, set this value to your Github secrets."
 }
