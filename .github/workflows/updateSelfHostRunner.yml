@@ -1,0 +1,15 @@
+name: Update Self Host Runner
+on:
+  workflow_dispatch:
+permissions:
+  id-token: write # required!
+jobs:
+  JobStatus:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-1
+      - name: Update Self Host Runner
+        run: aws codebuild start-build --project-name eg-test-githubself-hosted-runner
