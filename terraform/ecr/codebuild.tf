@@ -32,19 +32,6 @@ module "build" {
   image_tag       = "latest"
 }
 
-resource "aws_codebuild_webhook" "build" {
-  project_name = module.build.project_name
-
-  filter_group {
-    filter {
-      exclude_matched_pattern = false
-      pattern                 = "PUSH"
-      type                    = "EVENT"
-    }
-    filter {
-      exclude_matched_pattern = false
-      pattern                 = "^refs/tags/v.*"
-      type                    = "HEAD_REF"
-    }
-  }
+output "codebuild_arn" {
+  value = module.build.project_arn
 }
