@@ -7,7 +7,6 @@ on:
         required: true
 permissions:
   id-token: write # required!
-
 jobs:
   JobStatus:
     runs-on: ubuntu-latest
@@ -22,14 +21,14 @@ jobs:
           echo "::notice title=Self Hosted Runner Job Id::${{ github.event.inputs.jobId }}"
           OLD_STATUS=
           while true; do
-            STATUS=$(aws --region ap-northeast-1 batch describe-jobs --jobs "${{ github.event.inputs.jobId }}" | jq -r '.jobs[0].status')
+            STATUS=$(aws batch describe-jobs --jobs "${{ github.event.inputs.jobId }}" | jq -r '.jobs[0].status')
             if [[ "${STATUS}" != "${OLD_STATUS}" ]]; then
               echo "::notice title=Status::[$(date +'%Y/%m/%d %T %Z')] $STATUS"
             fi
             OLD_STATUS=$STATUS
             if [[ "${STATUS}" = "FAILED" || "${STATUS}" = "SUCCEEDED" ]]; then
-              LOG_NAME=$(aws --region ap-northeast-1 batch describe-jobs --jobs "${{ github.event.inputs.jobId }}" | jq -r '.jobs[0].container.logStreamName')
-              aws --region ap-northeast-1 logs get-log-events --log-group-name /aws/batch/job --log-stream-name "${LOG_NAME}"|grep message| rev | cut -c 3- | rev | cut -c 25- 
+              LOG_NAME=$(aws batch describe-jobs --jobs "${{ github.event.inputs.jobId }}" | jq -r '.jobs[0].container.logStreamName')
+              aws logs get-log-events --log-group-name /aws/batch/job --log-stream-name "${LOG_NAME}"|grep message| rev | cut -c 3- | rev | cut -c 25- 
             fi
             [[ "${STATUS}" = "" ]] && exit 1
             [[ "${STATUS}" = "null" ]] && exit 1
