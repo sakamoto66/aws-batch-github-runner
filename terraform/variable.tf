@@ -7,3 +7,11 @@ variable "runner_secret_key" {
 variable "codebuild_source_location" {
   default = ""
 }
+variable "github_account" {
+  description = "Inputs github user or organization or '*'."
+}
+variable "github_repository" {
+  description = "Inputs repository or '*'."
+}
+
+data "aws_caller_identity" "now" {}

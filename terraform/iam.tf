@@ -1,22 +1,29 @@
 resource "aws_iam_policy" "executer" {
   name   = "github-batch-executer"
+  
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-      {
-          "Effect": "Allow",
-          "Action": [
-              "batch:DescribeJobs",
-              "batch:SubmitJob"
-          ],
-          "Resource": "*"
-      },
-      {
-          "Effect": "Allow",
-          "Action": "logs:GetLogEvents",
-          "Resource": "arn:aws:logs:*:*:log-group:/aws/batch/job:log-stream:*"
-      }
+    {
+      "Effect": "Allow",
+      "Action": [
+        "batch:SubmitJob",
+        "logs:GetLogEvents",
+        "codebuild:StartBuild"
+      ],
+      "Resource": [
+        "arn:aws:batch:*:${data.aws_caller_identity.now.account_id}:job-definition/${var.batch_name}",
+        "arn:aws:batch:*:${data.aws_caller_identity.now.account_id}:job-queue/${var.batch_name}_*",
+        "arn:aws:logs:*:${data.aws_caller_identity.now.account_id}:log-group:/aws/batch/job:log-stream:${var.batch_name}/*",
+        "${module.runner_ecr.codebuild_arn}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": "batch:DescribeJobs",
+      "Resource": "*"
+    }
   ]
 }
 EOF
