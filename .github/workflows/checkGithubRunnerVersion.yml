@@ -13,5 +13,8 @@ jobs:
           echo current: ${VER1} 
           VER2=$(gh release view -R "${ORG_REPO}" --json tagName | jq -r '.tagName')
           echo latest: ${VER2}
+          if [[ "${VER1}" != "${VER2}" ]]; then
+            gh release create v${VER2}
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
