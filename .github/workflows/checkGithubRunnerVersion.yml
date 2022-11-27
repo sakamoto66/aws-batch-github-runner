@@ -1,0 +1,16 @@
+name: Check Github Runner Version
+on:
+  workflow_dispatch:
+jobs:
+  CheckVersion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Github Runner Version
+        run: |
+          ORG_REPO=https://github.com/myoung34/docker-github-actions-runner
+          VER1=$(gh release view --json tagName | jq -r '.tagName' | cut -c 2-)
+          echo current: ${VER1} 
+          VER2=$(gh release view -R "${ORG_REPO}" --json tagName | jq -r '.tagName')
+          echo latest: ${VER2}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
