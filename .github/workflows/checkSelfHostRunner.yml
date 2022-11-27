@@ -5,6 +5,10 @@ on:
       jobId:
         description: 'Self Hosted Runner Job Id'
         required: true
+permissions:
+  id-token: write # required!
+  contents: read
+
 jobs:
   JobStatus:
     runs-on: ubuntu-latest
