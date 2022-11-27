@@ -10,11 +10,22 @@ jobs:
         run: |
           ORG_REPO=https://github.com/myoung34/docker-github-actions-runner
           VER1=$(gh release view --json tagName | jq -r '.tagName' | cut -c 2-)
-          echo current: ${VER1} 
+          echo current: ${VER1}
+          echo VER1=${VER1} >> $GITHUB_ENV
           VER2=$(gh release view -R "${ORG_REPO}" --json tagName | jq -r '.tagName')
           echo latest: ${VER2}
-          if [[ "${VER1}" != "${VER2}" ]]; then
-            gh release create v${VER2}
-          fi
+          echo VER2=${VER2} >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: aws-actions/configure-aws-credentials@v1
+        if: env.VER1 != env.VER2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-1
+      - name: Update Self Host Runner
+        if: env.VER1 != env.VER2
+        run: |
+          gh release create v${{ env.VER2 }}
+          aws codebuild start-build --project-name eg-test-githubself-hosted-runner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
