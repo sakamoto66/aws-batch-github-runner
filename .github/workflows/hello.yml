@@ -1,13 +1,19 @@
 name: hello
 on:
   workflow_dispatch:
+permissions:
+  id-token: write # required!
 jobs:
   StartRunner:
     runs-on: ubuntu-latest
     steps:
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-1
       - name: Start Self Hosted Runner
         run: |
-          JOB_21_ID=$(aws --region ap-northeast-1 batch submit-job \
+          JOB_21_ID=$(aws batch submit-job \
           --job-name test \
           --job-queue github_self_runner_spot \
           --job-definition github_self_runner \
@@ -15,10 +21,6 @@ jobs:
           --container-overrides '{"vcpus": 2, "environment":[{"name":"REPO_URL","value":"https://github.com/${{ github.repository }}/"},{"name":"LABELS","value":"loadtest"}]}' \
           | jq -r '.jobId' )
           echo "::notice title=Self Hosted Runner Job Id::$JOB_21_ID"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
   test:
     needs: [StartRunner]
     runs-on: loadtest
