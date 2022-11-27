@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
+      - name: AWS Login
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-1
       - name: Check Job Status
         run: |
           echo "::notice title=Self Hosted Runner Job Id::${{ github.event.inputs.jobId }}"
@@ -30,6 +35,3 @@ jobs:
             [[ "${STATUS}" = "SUCCEEDED" ]] && exit 0
             sleep 10
           done
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
