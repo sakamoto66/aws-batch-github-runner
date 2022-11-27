@@ -7,7 +7,6 @@ on:
         required: true
 permissions:
   id-token: write # required!
-  contents: read
 
 jobs:
   JobStatus:
