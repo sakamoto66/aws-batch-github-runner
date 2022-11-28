@@ -63,6 +63,10 @@ $ cd ..
 - Value
   - `<memo of Step4>`
 
-## Step6. test
+## Step6. Build Github Self Hosted Runner
+
+- run .github/workflows/updateSelfHostRunner.yml on forked repository
+
+## Step7. test
 
 - run .github/workflows/hello.yml on forked repository
