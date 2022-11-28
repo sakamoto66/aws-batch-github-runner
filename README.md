@@ -6,6 +6,7 @@ It will be automatically terminated under any of the following conditions of the
 - The processing of the first job is finished
 - I did not receive a job for a certain period of time after starting (default:120sec)
 
+![Configuration Diagram](ConfigurationDiagram.drawio.svg)
 # Setup
 
 ## Step1. fork repository
