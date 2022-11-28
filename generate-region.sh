@@ -38,7 +38,6 @@ do
   sed -i -e "s/<region>/${region}/" "${tgt}"
 done < <(find "${DIR}/tmp/"* -type f -print0)
 
-mv "${DIR}/tmp/[[region]]" "${DIR}/tmp/${region}"
-mv "${DIR}/tmp/[[region]].tf" "${DIR}/tmp/${region}.tf"
+rename "s/\[\[region\]\]/${region}/" "${DIR}/tmp/"*
 mv "${DIR}/tmp/"* "${terraform}/"
 rmdir "${DIR}/tmp/"
