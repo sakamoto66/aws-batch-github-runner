@@ -1,6 +1,8 @@
 name: Check Github Runner Version
 on:
   workflow_dispatch:
+permissions:
+  id-token: write # required!
 jobs:
   CheckVersion:
     runs-on: ubuntu-latest
