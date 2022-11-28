@@ -55,13 +55,13 @@ $ cd ..
 
 - memo Value of `AWS_ROLE_ARN`.
 
-## Step6. Regist Secret in GitHub repository
+## Step5. Regist Secret in GitHub repository
 
 - Key
   - AWS_ROLE_ARN
 - Value
   - `<memo of Step4>`
 
-## Step7. test
+## Step6. test
 
 - run .github/workflows/hello.yml on forked repository
