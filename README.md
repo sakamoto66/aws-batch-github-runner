@@ -42,18 +42,6 @@ $ cd terraform
 $ terraform init
 $ terraform plan
 $ terraform apply
-$ cd ..
-```
-
-## Step5. Regist Batch Execute Role
-
-- run terraform
-
-```bash
-$ cd regist-batch-executer
-$ terraform init
-$ terraform plan
-$ terraform apply
 var.github_account
   Inputs github user or organization or '*'.
 
@@ -62,6 +50,7 @@ var.github_repository
   Inputs repository or '*'.
 
   Enter a value: 
+$ cd ..
 ```
 
 - memo Value of `AWS_ROLE_ARN`.
