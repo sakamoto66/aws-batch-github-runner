@@ -35,7 +35,7 @@ resource "aws_batch_compute_environment" "spot" {
       "m5",
     ]
 
-    max_vcpus = 96
+    max_vcpus = 500
     min_vcpus = 0
 
     security_group_ids = var.vpc_security_group_ids
