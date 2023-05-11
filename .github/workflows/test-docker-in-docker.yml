@@ -28,6 +28,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: Hello
+      run: |
+        du -a /
     - name: Run local k6 test
       uses: grafana/k6-action@v0.3.0
       with:
