@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 permissions:
   id-token: write # required!
+  contents: write
 jobs:
   CheckVersion:
     runs-on: ubuntu-latest
