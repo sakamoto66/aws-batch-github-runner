@@ -30,7 +30,8 @@ jobs:
       uses: actions/checkout@v3
     - name: Hello
       run: |
-        du -a /
+        du -a /github/workspace
+        du -a /_work/
     - name: Run local k6 test
       uses: grafana/k6-action@v0.3.0
       with:
@@ -42,7 +43,8 @@ jobs:
       uses: actions/checkout@v3
     - name: Hello
       run: |
-        du -a /
+        du -a /github/workspace
+        du -a /_work/
     - name: Run local k6 test
       uses: grafana/k6-action@v0.3.0
       with:
