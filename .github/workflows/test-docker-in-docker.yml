@@ -28,26 +28,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Hello
-      run: |
-        pwd
-    - name: Run local k6 test
-      uses: grafana/k6-action@v0.3.0
-      with:
-        filename: k6test.js
-  test2:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Hello
-      run: |
-        pwd
-  test3:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
     - name: Run local k6 test
       uses: grafana/k6-action@v0.3.0
       with:
