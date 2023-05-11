@@ -18,6 +18,32 @@ resource "aws_batch_job_definition" "github_self_runner" {
     "secrets" : [
         {"name": "ACCESS_TOKEN", "valueFrom": "${var.github_self_runner_secret_arn}:ACCESS_TOKEN::"}
     ],
+    "volumes": [
+      {
+        "host": {
+          "sourcePath": "/var/run/docker.sock"
+        },
+        "name": "dockersock"
+      },
+      {
+        "host": {
+          "sourcePath": "/_work/"
+        },
+        "name": "work"
+      }
+    ],
+    "mountPoints": [
+      {
+        "sourceVolume": "dockersock",
+        "containerPath": "/var/run/docker.sock",
+        "readOnly": false
+      },
+      {
+        "sourceVolume": "work",
+        "containerPath": "/_work/",
+        "readOnly": false
+      }
+    ],
     "executionRoleArn": "${var.batch_job_execution_role_arn}"
 }
 CONTAINER_PROPERTIES
