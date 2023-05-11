@@ -31,4 +31,4 @@ jobs:
     - name: Run local k6 test
       uses: grafana/k6-action@v0.3.0
       with:
-        filename: k6.js
+        filename: k6test.js
